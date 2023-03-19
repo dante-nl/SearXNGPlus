@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "Authorization",
+          "value": "Bearer MY_API_TOKEN",
+          "operation": "set"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "https://nominatim.openstreetmap.org/*",
+      "resourceTypes": ["xmlhttprequest"]
+    }
+  }
+]

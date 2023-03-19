@@ -1,0 +1,20 @@
+[
+  {
+    "id": 2,
+    "priority": 2,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "Authorization",
+          "value": "Bearer MY_API_TOKEN",
+          "operation": "set"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "https://api.open-meteo.com/*",
+      "resourceTypes": ["xmlhttprequest"]
+    }
+  }
+]

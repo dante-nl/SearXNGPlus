@@ -1,0 +1,77 @@
+{
+	"name": "SearXNG+",
+	"description": "Various added features added to make SearXNG more useful. Type / for a list of commands.",
+	"version": "2.0",
+	"manifest_version": 3,
+	"options_page": "HTML/options.html",
+	"background": {
+		"service_worker": "JS/background.js"
+	},
+	"action": {
+		"default_popup": "HTML/popup.html"
+	},
+	"permissions": [
+		"storage",
+		"activeTab",
+		"scripting",
+		"tabs",
+		"declarativeNetRequest"
+	],
+	"host_permissions": [
+		"http://*/",
+		"https://*/",
+		"https://nominatim.openstreetmap.org/*",
+		"https://api.open-meteo.com/*"
+	],
+	"content_security_policy": {
+	"extension_page":"script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+	},
+
+	"minimum_chrome_version": "92",
+	"declarative_net_request": {
+		"rule_resources": [
+			{
+				"id": "nominatim_rule",
+				"path": "JSON/nominatim.json",
+				"enabled": true,
+				"priority": 1,
+				"action": {
+				"type": "modifyHeaders",
+				"requestHeaders": [
+					{
+					"header": "Authorization",
+					"value": "Bearer YOUR_NOMINATIM_API_TOKEN"
+					}
+				]
+				},
+				"condition": {
+				"urlFilter": "https://nominatim.openstreetmap.org/*",
+				"resourceTypes": [
+					"xmlhttprequest"
+				]
+				}
+			},
+			{
+				"id": "open_meteo_rule",
+				"path": "JSON/open-meteo.json",
+				"enabled": true,
+				"priority": 2,
+				"action": {
+				"type": "modifyHeaders",
+				"requestHeaders": [
+					{
+					"header": "Authorization",
+					"value": "Bearer YOUR_OPEN_METEO_API_TOKEN"
+					}
+				]
+				},
+				"condition": {
+				"urlFilter": "https://api.open-meteo.com/*",
+				"resourceTypes": [
+					"xmlhttprequest"
+				]
+				}
+			}
+		]
+	}
+}
